@@ -1,0 +1,63 @@
+page-home {
+  .image {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 5px 20px black;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 99%;
+      background: rgba(0, 0, 0, .5);
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    .user__details {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      color: white;
+      z-index: 2;
+      padding: 25px;
+      &--image {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+          width: 15%;
+        }
+      }
+      &--title {
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+      &--points {
+        font-size: 25px;
+        margin-top: 10px;
+      }
+      &--description {
+        font-size: 10px;
+      }
+    }
+  }
+
+  .last__date {
+    width: 85%;
+    margin: auto;
+    button {
+      position: relative;
+      padding: 5px;
+      top: -20px;
+      background: #4cd782;
+      z-index: 5;
+      color: black;
+    }
+  }
+}
