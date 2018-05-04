@@ -1,22 +1,19 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ModalController, NavParams, ViewController} from "ionic-angular";
 
-/**
- * Generated class for the ContactDetailsComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'contact-details',
   templateUrl: 'contact-details.html'
 })
 export class ContactDetailsComponent {
 
-  text: string;
+  userObj: any;
 
-  constructor() {
-    console.log('Hello ContactDetailsComponent Component');
-    this.text = 'Hello World';
+  constructor(public modalCtrl: ModalController, public viewCtrl: ViewController, params: NavParams) {
+    this.userObj = params.get('data')
   }
 
+  closeModal() {
+    this.viewCtrl.dismiss();
+  };
 }

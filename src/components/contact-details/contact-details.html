@@ -1,4 +1,14 @@
-<!-- Generated template for the ContactDetailsComponent component -->
-<div>
-  {{text}}
+<div class="modal__container">
+  <div class="modal">
+
+    <div class="modal__details">
+      <span class="modal__title">Opis profilu:</span>
+      <span>{{userObj.name}}</span>
+      <span class="modal__details--item">Ilość punktów:</span>
+      <span class="modal__details--item bigger__font">{{userObj.points}}</span>
+      <span class="modal__details--item">Ostatnia rozgrywka:</span>
+      <span class="modal__details--item bigger__font">{{userObj.lastMatch }}</span>
+    </div>
+    <button ion-button color="primary" block class="btn btn__login" (click)="closeModal()">Wróć</button>
+  </div>
 </div>

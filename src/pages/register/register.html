@@ -7,12 +7,36 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <ion-title>Rejestracja</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<form (submit)="registerUser()">
+  <ion-list>
 
-<ion-content padding>
+    <ion-item>
+      <ion-label fixed>Login</ion-label>
+      <ion-input type="text" name="login"></ion-input>
+    </ion-item>
 
-</ion-content>
+    <ion-item>
+      <ion-label fixed>Email</ion-label>
+      <ion-input type="email" name="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Password</ion-label>
+      <ion-input type="password" name="password"></ion-input>
+    </ion-item>
+
+    <div class="buttons">
+      <button ion-button color="primary" block class="btn btn__login">Zarejestruj się</button>
+    </div>
+
+    <div>
+      <button ion-button color="primary" block class="btn btn__login">Google +</button>
+    </div>
+
+  </ion-list>
+</form>

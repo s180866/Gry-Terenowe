@@ -23,8 +23,9 @@ export class LoginPage {
               public toastCtrl: ToastController) {
   }
 
-  doLogin() {
+  userLogin() {
     this.navCtrl.push(HomePage)
+    this.navCtrl.setRoot(TabsPage,{})
     // this.user.login(this.account)
     //   .subscribe(res => {
     //     if (res.status === 200) {

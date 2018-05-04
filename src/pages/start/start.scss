@@ -8,10 +8,16 @@ page-start {
     position: relative;
     //background: url('../assets/img/loginBackground.png') repeat-x transparent;
     background-size: cover;
-    height: 60%;
+    height: 55%;
     width: 100%;
     z-index: 1;
     animation: animatedBackground 5s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 75%;
+    }
   }
 
   @keyframes animatedBackground {

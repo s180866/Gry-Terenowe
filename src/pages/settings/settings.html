@@ -7,5 +7,37 @@
 </ion-header>
 
 <ion-content>
+  <div class="buttons__container" padding *ngIf="isActive">
+
+    <button ion-button color="primary" block class="btn__login" (click)="changeIsActive()">Edytuj ustawienia</button>
+    <button ion-button color="primary" block class="btn__login">Wyloguj się</button>
+
+  </div>
+
+  <div class="content__wrapper">
+    <ion-list *ngIf="!isActive">
+
+      <ion-item>
+        <ion-label fixed>Avatar</ion-label>
+        <ion-input type="file"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label fixed>Hasło</ion-label>
+        <ion-input type="password" name="password"></ion-input>
+      </ion-item>
+
+      <div padding>
+        <button ion-button color="primary" block class="btn btn__login">Zapisz</button>
+        <button ion-button color="primary" block class="btn btn__login" (click)="changeIsActive()">Wróć</button>
+      </div>
+
+    </ion-list>
+  </div>
 
 </ion-content>

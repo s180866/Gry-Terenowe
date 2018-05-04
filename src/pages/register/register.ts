@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the RegisterPage page.
@@ -22,4 +22,7 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
+  registerUser() {
+
+  }
 }
