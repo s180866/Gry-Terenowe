@@ -1,47 +1,56 @@
-import {Injectable} from '@angular/core';
-import {Events} from "ionic-angular";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import AuthProvider = firebase.auth.AuthProvider;
 
 @Injectable()
-export class AuthProvider {
-  HAS_LOGGED_IN = 'hasLoggedIn';
+export class AuthService {
+  private user: firebase.User;
 
-  constructor(public events: Events,
-              public storage: Storage) {
+  constructor(public afAuth: AngularFireAuth) {
+    afAuth.authState.subscribe(user => {
+      this.user = user;
+    });
   }
 
+  signInWithEmail(credentials) {
+    return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
+      credentials.password);
+  }
 
-  login(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:login');
-  };
+  signUp(credentials) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email,credentials.password);
+  }
 
-  signup(username: string): void {
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    this.setUsername(username);
-    this.events.publish('user:signup');
-  };
+  get authenticated(): boolean {
+    return this.user !== null;
+  }
 
-  logout(): void {
-    this.storage.remove(this.HAS_LOGGED_IN);
-    this.storage.remove('username');
-    this.events.publish('user:logout');
-  };
+  getEmail() {
+    return this.user && this.user.email;
+  }
 
-  setUsername(username: string): void {
-    this.storage.set('username', username);
-  };
+  signOut(): Promise<void> {
+    return this.afAuth.auth.signOut();
+  }
 
-  getUsername(): Promise<string> {
-    return this.storage.get('username').then((value) => {
-      return value;
-    });
-  };
+  signInWithGoogle() {
+    return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+  }
 
-  hasLoggedIn(): Promise<boolean> {
-    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-      return value === true;
-    });
-  };
-
+  private oauthSignIn(provider: AuthProvider) {
+    if (!(<any>window).cordova) {
+      return this.afAuth.auth.signInWithPopup(provider);
+    } else {
+      return this.afAuth.auth.signInWithRedirect(provider)
+        .then(() => {
+          return this.afAuth.auth.getRedirectResult().then( result => {
+            let token = result.credential.accessToken;
+            let user = result.user;
+          }).catch(function(error) {
+            alert(error.message);
+          });
+        });
+    }
+  }
 }

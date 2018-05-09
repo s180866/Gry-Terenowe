@@ -10,7 +10,7 @@
   <div class="buttons__container" padding *ngIf="isActive">
 
     <button ion-button color="primary" block class="btn__login" (click)="changeIsActive()">Edytuj ustawienia</button>
-    <button ion-button color="primary" block class="btn__login">Wyloguj się</button>
+    <button ion-button color="primary" block class="btn__login" (click)="logout()">Wyloguj się</button>
 
   </div>
 
@@ -40,4 +40,5 @@
     </ion-list>
   </div>
 
+  <button (click)="addUser('test@wp.pl')">ADD USER</button>
 </ion-content>

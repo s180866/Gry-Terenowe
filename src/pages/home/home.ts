@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ModalController, NavController, NavParams} from 'ionic-angular';
 import {ContactDetailsComponent} from "../../components/contact-details/contact-details";
 import {LastRunComponent} from "../../components/last-run/last-run";
+import {TabsPage} from "../tabs/tabs";
 
 @Component({
   selector: 'page-home',

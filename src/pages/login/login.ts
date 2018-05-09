@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import {NavController, ToastController} from 'ionic-angular';
-import {TabsPage} from "../tabs/tabs";
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NavController} from 'ionic-angular';
 import {RegisterPage} from "../register/register";
-import {AuthProvider} from "../../providers/auth/auth";
+import {AuthService} from "../../providers/auth/auth";
 import {HomePage} from "../home/home";
+import {TabsPage} from "../tabs/tabs";
+import {UserProvider} from "../../providers/user/user.provider";
 
 
 @Component({
@@ -12,42 +13,51 @@ import {HomePage} from "../home/home";
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  account: { login: string, password: string } = {
-    login: '',
-    password: ''
-  };
-  userData: any;
-  private loginErrorString: string;
+  loginForm: FormGroup;
+  loginError: string;
 
-  constructor(public navCtrl: NavController,
-              public toastCtrl: ToastController) {
+  constructor(private navCtrl: NavController,
+              private auth: AuthService,
+              private userService: UserProvider,
+              fb: FormBuilder) {
+    this.loginForm = fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
   }
 
-  userLogin() {
-    this.navCtrl.push(HomePage)
-    this.navCtrl.setRoot(TabsPage,{})
-    // this.user.login(this.account)
-    //   .subscribe(res => {
-    //     if (res.status === 200) {
-    //       this.navCtrl.push(HomePage);
-    //
-    //       NativeStorage.setItem('loginname', this.account.login)
-    //         .then(() => console.log('Stored Login Data!'), error => console.error('Error storing LoginData', error));
-    //
-    //       NativeStorage.setItem('loginpassword', this.account.password)
-    //         .then(() => console.log('Stored Password Data!'), error => console.error('Error storing Password', error));
-    //     } else {
-    //       let toast = this.toastCtrl.create({
-    //         message: this.loginErrorString,
-    //         duration: 3000,
-    //         position: 'top'
-    //       });
-    //       toast.present();
-    //     }
-    //   });
+  login() {
+    let data = this.loginForm.value;
+
+    if (!data.email) {
+      return;
+    }
+
+    let credentials = {
+      email: data.email,
+      password: data.password
+    };
+    this.auth.signInWithEmail(credentials)
+      .then(
+        (res) => {
+          this.navCtrl.setRoot(HomePage)
+        },
+        error => this.loginError = error.message
+      );
   }
 
-  getUserData(){
-    return this.userData;
+  signup() {
+    this.navCtrl.push(RegisterPage);
+  }
+
+  loginWithGoogle() {
+    this.auth.signInWithGoogle()
+      .then(
+        () => {
+          this.navCtrl.setRoot(HomePage);
+          this.navCtrl.setRoot(TabsPage);
+        },
+        error => console.log(error.message)
+      );
   }
 }
