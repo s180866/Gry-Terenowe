@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="login()" [formGroup]="loginForm">
+  <form (ngSubmit)="login()" [formGroup]="loginForm" ion-fixed>
     <ion-list inset>
 
       <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
