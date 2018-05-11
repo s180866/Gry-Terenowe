@@ -56,11 +56,11 @@ export class MyApp {
           if (user) {
             this.openPage(TabsPage)
           } else {
-            this.rootPage = LoginPage;
+            this.rootPage = StartPage;
           }
         },
         () => {
-          this.rootPage = LoginPage;
+          this.rootPage = StartPage;
         }
       );
   }
